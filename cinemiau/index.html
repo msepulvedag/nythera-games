@@ -2,30 +2,77 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Cinemiau: Puzzle de Gatos · Nythera Games</title>
-<meta name="description" content="Cinemiau es un puzle relajado de ordenar colores y pixel art con pósters de cine protagonizados por gatos. Sin anuncios, sin compras, sin cuentas.">
+<meta name="description" content="Cinemiau es un puzle relajado de ordenar colores y pixel art con pósters de cine protagonizados por gatos. Gratis, sin cuentas y sin conexión.">
 <meta name="color-scheme" content="dark">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%238E2230'/%3E%3Ctext x='32' y='45' font-size='40' text-anchor='middle' fill='%23E3B341' font-family='sans-serif' font-weight='700'%3EN%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="/style.css">
+<meta name="theme-color" content="#0B0812">
+<link rel="icon" type="image/png" href="/assets/img/favicon.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/Marcellus.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/Figtree.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css?v=2">
 </head>
-<body>
-<header><div class="wrap"><a class="brand" href="/">Nythera Games</a><nav><a href="/">Inicio</a><a href="/cinemiau/">Cinemiau</a><a href="/cinemiau/privacidad/">Privacidad</a></nav></div></header>
-<main><div class="wrap">
+<body data-product="cinemiau">
+<header class="site-header"><div class="wrap"><a class="brand" href="/" aria-label="Nythera Games, inicio"><img class="marca" src="/assets/img/nythera-emblem.png" alt="" width="46" height="44"><img class="marca brand-word" src="/assets/img/nythera-wordmark.png" alt="" width="132" height="30"></a><nav class="site-nav" aria-label="Principal"><a href="/">Inicio</a><a href="/cinemiau/" aria-current="page">Cinemiau</a><a href="/cinemiau/privacidad/">Privacidad</a></nav></div></header>
+<main>
+<section class="hero">
+<div class="cielo" aria-hidden="true"></div>
+<div class="wrap">
+<div class="hero-text">
+<img src="/assets/img/cinemiau-logo.png" alt="" width="634" height="340" style="width:min(100%,340px);margin:0 0 var(--s-4) -10px">
 <h1>Cinemiau: Puzzle de Gatos</h1>
 <p class="lead">Ordena piedras de colores, completa el pixel art y gira la carta para descubrir el póster de una película… ¡protagonizada por gatos!</p>
-<div class="card"><ul>
-<li>Un juego de ordenar colores fácil de aprender y difícil de soltar.</li>
-<li>Tableros grandes de pixel art con pista automática opcional.</li>
-<li>Una cartelera que se llena de estrenos a medida que juegas.</li>
-<li>Sin anuncios, sin compras dentro de la app y sin cuentas. Funciona sin conexión.</li>
-</ul></div>
-<h2>Soporte</h2>
-<p>¿Tienes una duda o encontraste un problema? Escríbenos a <a href="mailto:contacto@nythera.games">contacto@nythera.games</a> e indica tu dispositivo y la versión de la app.</p>
+<ul class="chips"><li class="chip chip--estado">Próximamente</li><li class="chip">iPhone</li><li class="chip">Android</li></ul>
+<p class="muted"><a href="/cinemiau/en/" lang="en">English version</a></p>
+</div>
+<div class="hero-art posters" aria-hidden="true">
+<img class="poster" src="/assets/img/posters/2001-odisea-del-gato.jpg" alt="" width="400" height="600">
+<img class="poster" src="/assets/img/posters/catanic.jpg" alt="" width="400" height="600">
+<img class="poster" src="/assets/img/posters/el-resplandor-miau.jpg" alt="" width="400" height="600">
+</div>
+</div>
+</section>
+
+<section class="section" aria-labelledby="como">
+<div class="wrap">
+<div class="section-head"><p class="eyebrow">Cómo se juega</p><h2 id="como">Un estreno por cada puzle</h2></div>
+<ul class="rasgos">
+<li><h3>Ordena colores</h3><p>Un juego de ordenar piedras fácil de aprender y difícil de soltar.</p></li>
+<li><h3>Completa el pixel art</h3><p>Tableros grandes de pixel art, con pista automática opcional.</p></li>
+<li><h3>Llena tu cartelera</h3><p>Cada nivel terminado gira la carta y suma un estreno a tu cartelera.</p></li>
+<li><h3>Juega a tu manera</h3><p>Gratis y sin cuentas, y funciona sin conexión. Los anuncios empiezan en el nivel 9 y se quitan con una compra única.</p></li>
+</ul>
+</div>
+</section>
+
+<section class="section" aria-labelledby="cartelera">
+<div class="wrap">
+<div class="section-head"><p class="eyebrow">En cartelera</p><h2 id="cartelera">Algunos estrenos que vas a descubrir</h2></div>
+<ul class="cartelera">
+<li><figure><img class="poster" src="/assets/img/posters/el-gato-padrino.jpg" alt="Póster de El Gato Padrino" width="400" height="600" loading="lazy"><figcaption>El Gato Padrino</figcaption></figure></li>
+<li><figure><img class="poster" src="/assets/img/posters/catanic.jpg" alt="Póster de Catánic" width="400" height="600" loading="lazy"><figcaption>Catánic</figcaption></figure></li>
+<li><figure><img class="poster" src="/assets/img/posters/el-mago-de-miauz.jpg" alt="Póster de El Mago de Miauz" width="400" height="600" loading="lazy"><figcaption>El Mago de Miauz</figcaption></figure></li>
+<li><figure><img class="poster" src="/assets/img/posters/2001-odisea-del-gato.jpg" alt="Póster de 2001: Odisea del Gato" width="400" height="600" loading="lazy"><figcaption>2001: Odisea del Gato</figcaption></figure></li>
+<li><figure><img class="poster" src="/assets/img/posters/desayuno-con-sardinas.jpg" alt="Póster de Desayuno con Sardinas" width="400" height="600" loading="lazy"><figcaption>Desayuno con Sardinas</figcaption></figure></li>
+<li><figure><img class="poster" src="/assets/img/posters/el-resplandor-miau.jpg" alt="Póster de El Resplandor Miau" width="400" height="600" loading="lazy"><figcaption>El Resplandor Miau</figcaption></figure></li>
+</ul>
+</div>
+</section>
+
+<section class="section" aria-labelledby="soporte">
+<div class="wrap">
+<div class="section-head">
+<p class="eyebrow">Soporte</p>
+<h2 id="soporte">¿Tienes una duda o encontraste un problema?</h2>
+<p>Escríbenos a <a href="mailto:contacto@nythera.games">contacto@nythera.games</a> e indica tu dispositivo y la versión de la app.</p>
 <h2>Privacidad</h2>
 <p>Cinemiau es gratis con anuncios de Google AdMob, que puedes quitar con una compra única. Lee la <a href="/cinemiau/privacidad/">política de privacidad</a> y las <a href="/cinemiau/condiciones/">condiciones del servicio</a>.</p>
-<p class="updated">Cinemiau es un juego independiente. Todas las ilustraciones son parodias originales con gatos; no están afiliadas ni respaldadas por ningún estudio, productor ni marca. <a href="/cinemiau/en/">English version</a></p>
-</div></main>
-<footer><div class="wrap">© 2026 Nythera Games · <a href="mailto:contacto@nythera.games">contacto@nythera.games</a></div></footer>
+<p class="muted">Cinemiau es un juego independiente. Todas las ilustraciones son parodias originales con gatos; no están afiliadas ni respaldadas por ningún estudio, productor ni marca.</p>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer"><div class="wrap"><img class="marca" src="/assets/img/nythera-wordmark.png" alt="Nythera Games" width="150" height="34" loading="lazy"><p>© 2026 Nythera Games · <a href="mailto:contacto@nythera.games">contacto@nythera.games</a></p></div></footer>
 </body>
 </html>

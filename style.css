@@ -1,21 +1,194 @@
-:root{--bg:#14101A;--surface:#241B2B;--curtain:#8E2230;--gold:#E3B341;--ivory:#F6EEDB;--muted:#B9AFC0}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ivory);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-a{color:var(--gold)}
-a:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:3px}
-header{background:var(--curtain);border-bottom:4px solid var(--gold)}
-.wrap{max-width:760px;margin:0 auto;padding:0 20px}
-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:16px;padding-bottom:16px;flex-wrap:wrap}
-.brand{color:var(--ivory);font-weight:800;font-size:1.25rem;text-decoration:none;letter-spacing:.02em}
-nav a{color:var(--ivory);margin-left:16px;font-size:.95rem}
-main{padding:32px 0 56px}
-h1{font-size:2rem;line-height:1.2;color:var(--gold);margin:.2em 0 .4em}
-h2{font-size:1.25rem;color:var(--gold);margin:1.8em 0 .4em}
-.lead{color:var(--muted);font-size:1.1rem}
-.card{background:var(--surface);border-radius:14px;padding:20px 22px;margin:20px 0}
-ul{padding-left:1.2em}li{margin:.35em 0}
-.btn{display:inline-block;background:var(--gold);color:#14101A;font-weight:700;padding:12px 20px;border-radius:999px;text-decoration:none}
-footer{border-top:1px solid #3a2f44;color:var(--muted);font-size:.9rem;padding:24px 0}
-footer a{color:var(--muted)}
-.updated{color:var(--muted);font-size:.9rem}
+/* Nythera Games · sistema de diseño «Noche» v1
+   Fuente de los colores: el logotipo (noche #000, luna #F7F1EC,
+   amatista #4F2C6A del cabello, lavanda #654382 de «GAMES»).
+   Una sola apariencia oscura, a propósito: la marca vive de noche. */
+
+@font-face{font-family:"Marcellus";src:url(/assets/fonts/Marcellus.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Figtree";src:url(/assets/fonts/Figtree.woff2) format("woff2");font-weight:300 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Josefin Sans";src:url(/assets/fonts/JosefinSans.woff2) format("woff2");font-weight:100 700;font-style:normal;font-display:swap}
+
+:root{
+  /* Color · marca */
+  --noche-950:#000000;   /* fondo del logo; solo detrás de imágenes de marca */
+  --noche-900:#0B0812;   /* fondo de página */
+  --noche-800:#141020;   /* superficies: tarjetas, pie */
+  --noche-700:#1E1730;   /* superficie elevada, hover */
+  --noche-600:#2C2244;   /* líneas finas y bordes */
+  --luna:#F7F1EC;        /* texto principal, botón principal */
+  --luna-tenue:#CFC5DA;  /* texto secundario */
+  --niebla:#9488A6;      /* leyendas, metadatos */
+  --amatista:#4F2C6A;    /* rellenos de marca */
+  --lavanda:#654382;     /* filetes y bordes de marca (no para texto) */
+  --glicina:#B99DDC;     /* enlaces y acento legible sobre noche */
+  /* Color · productos (sub-paletas) */
+  --cinemiau-oro:#E3B341;
+  --cinemiau-telon:#8E2230;
+  /* Roles (los productos solo cambian estos) */
+  --acento:var(--glicina);
+  --acento-filete:var(--lavanda);
+  --acento-relleno:var(--amatista);
+
+  /* Tipografía */
+  --font-display:"Marcellus","Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --font-body:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-label:"Josefin Sans","Futura","Century Gothic",system-ui,sans-serif;
+  --t-display:clamp(2.6rem,6vw,4.25rem);
+  --t-h1:clamp(2.1rem,4.4vw,3rem);
+  --t-h2:clamp(1.6rem,3vw,2.05rem);
+  --t-h3:1.25rem;
+  --t-lead:1.2rem;
+  --t-body:1.0625rem;
+  --t-small:.9375rem;
+  --t-label:.78rem;
+
+  /* Espacio (base 4) */
+  --s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:24px;--s-6:32px;--s-7:48px;--s-8:72px;--s-9:112px;
+  /* Radios */
+  --r-s:4px;--r-m:14px;--r-pill:999px;
+  /* Sombras */
+  --sombra-poster:0 18px 40px -12px rgba(0,0,0,.75);
+  /* Anchos */
+  --w-page:1120px;--w-text:44rem;
+  --gutter-l:max(20px,env(safe-area-inset-left,0px));
+  --gutter-r:max(20px,env(safe-area-inset-right,0px));
+
+  --estrella:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0C12.9 8 16 11.1 24 12 16 12.9 12.9 16 12 24 11.1 16 8 12.9 0 12 8 11.1 11.1 8 12 0Z'/%3E%3C/svg%3E");
+  color-scheme:dark;
+}
+[data-product="cinemiau"]{
+  --acento:var(--cinemiau-oro);
+  --acento-filete:var(--cinemiau-oro);
+  --acento-relleno:var(--cinemiau-telon);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--noche-900);color:var(--luna);font:400 var(--t-body)/1.65 var(--font-body);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+main{flex:1}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--acento);text-decoration-thickness:1px;text-underline-offset:.2em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--acento);outline-offset:3px;border-radius:var(--r-s)}
+::selection{background:var(--amatista);color:var(--luna)}
+strong{font-weight:700;color:var(--luna)}
+
+/* Marca: las imágenes del logo tienen fondo negro puro; «screen» lo vuelve transparente sobre la noche */
+.marca{mix-blend-mode:screen}
+
+.wrap{max-width:var(--w-page);margin:0 auto;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+
+/* Encabezado */
+.site-header{border-bottom:1px solid var(--noche-600);background:var(--noche-900)}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:var(--s-2) var(--s-6);flex-wrap:wrap;padding-block:var(--s-3)}
+.brand{display:flex;align-items:center;gap:var(--s-2);text-decoration:none}
+.brand img:first-child{width:46px;height:auto}
+.brand .brand-word{width:132px;height:auto}
+.site-nav{display:flex;flex-wrap:wrap;gap:var(--s-1) var(--s-5)}
+.site-nav a{font:600 var(--t-label)/1 var(--font-label);letter-spacing:.2em;text-transform:uppercase;color:var(--luna-tenue);text-decoration:none;padding-block:var(--s-3) 10px;border-bottom:1px solid transparent}
+.site-nav a:hover{color:var(--luna)}
+.site-nav a[aria-current="page"]{color:var(--luna);border-bottom-color:var(--acento-filete)}
+
+/* Etiqueta: eco de «— GAMES —» */
+.eyebrow{display:inline-flex;align-items:center;gap:var(--s-3);margin:0 0 var(--s-4);font:600 var(--t-label)/1.2 var(--font-label);letter-spacing:.32em;text-transform:uppercase;color:var(--acento)}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--acento-filete)}
+
+/* Títulos y texto */
+h1,h2,.display{font-family:var(--font-display);font-weight:400;letter-spacing:.01em;text-wrap:balance;color:var(--luna)}
+.display{font-size:var(--t-display);line-height:1.04;margin:0 0 var(--s-5)}
+h1{font-size:var(--t-h1);line-height:1.1;margin:0 0 var(--s-4)}
+h2{font-size:var(--t-h2);line-height:1.2;margin:var(--s-7) 0 var(--s-3)}
+h3{font:600 var(--t-h3)/1.35 var(--font-body);margin:var(--s-5) 0 var(--s-2)}
+p{margin:0 0 var(--s-4)}
+.lead{font-size:var(--t-lead);line-height:1.6;color:var(--luna-tenue);max-width:36rem;text-wrap:pretty}
+.muted,.updated{color:var(--niebla);font-size:var(--t-small)}
+
+/* Botones */
+.actions{display:flex;flex-wrap:wrap;gap:var(--s-3);margin-top:var(--s-5)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s-2);min-height:48px;padding:0 var(--s-5);border-radius:var(--r-pill);font:700 1rem/1 var(--font-body);text-decoration:none;border:1px solid transparent;transition:background-color .15s,border-color .15s,color .15s}
+.btn--primary{background:var(--luna);color:var(--noche-900)}
+.btn--primary:hover{background:#fff}
+.btn--ghost{border-color:var(--acento-filete);color:var(--luna)}
+.btn--ghost:hover{background:var(--noche-700)}
+
+/* Chips de estado */
+.chips{display:flex;flex-wrap:wrap;gap:var(--s-2);margin:0 0 var(--s-4);padding:0;list-style:none}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:var(--r-pill);border:1px solid var(--noche-600);background:var(--noche-800);font:600 .72rem/1 var(--font-label);letter-spacing:.16em;text-transform:uppercase;color:var(--luna-tenue)}
+.chip--estado{border-color:var(--acento-filete);color:var(--acento)}
+
+/* Lista con estrellas */
+.stars{list-style:none;padding:0;margin:0 0 var(--s-4)}
+.stars li{position:relative;padding-left:28px;margin:0 0 var(--s-3)}
+.stars li::before{content:"";position:absolute;left:0;top:.42em;width:14px;height:14px;background:var(--acento);-webkit-mask:var(--estrella) center/contain no-repeat;mask:var(--estrella) center/contain no-repeat}
+
+/* Héroe con cielo */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--noche-600);background:radial-gradient(90% 120% at 78% 40%,#1A1129 0%,var(--noche-900) 62%)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center;gap:var(--s-6);padding-block:var(--s-8)}
+.hero-text{min-width:0}
+.hero-art{justify-self:center;width:min(100%,460px)}
+.cielo{position:absolute;inset:0;pointer-events:none;opacity:.5;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='560' fill='%23F7F1EC'%3E%3Cg%3E%3Cpath transform='translate(80 70) scale(.5)' d='M12 0C12.9 8 16 11.1 24 12 16 12.9 12.9 16 12 24 11.1 16 8 12.9 0 12 8 11.1 11.1 8 12 0Z'/%3E%3Cpath transform='translate(520 40) scale(.35)' d='M12 0C12.9 8 16 11.1 24 12 16 12.9 12.9 16 12 24 11.1 16 8 12.9 0 12 8 11.1 11.1 8 12 0Z'/%3E%3Cpath transform='translate(1080 120) scale(.6)' d='M12 0C12.9 8 16 11.1 24 12 16 12.9 12.9 16 12 24 11.1 16 8 12.9 0 12 8 11.1 11.1 8 12 0Z'/%3E%3Cpath transform='translate(640 500) scale(.4)' d='M12 0C12.9 8 16 11.1 24 12 16 12.9 12.9 16 12 24 11.1 16 8 12.9 0 12 8 11.1 11.1 8 12 0Z'/%3E%3Cpath transform='translate(40 480) scale(.3)' d='M12 0C12.9 8 16 11.1 24 12 16 12.9 12.9 16 12 24 11.1 16 8 12.9 0 12 8 11.1 11.1 8 12 0Z'/%3E%3C/g%3E%3Cg opacity='.7'%3E%3Ccircle cx='300' cy='40' r='1.2'/%3E%3Ccircle cx='420' cy='160' r='1'/%3E%3Ccircle cx='180' cy='300' r='1.3'/%3E%3Ccircle cx='760' cy='90' r='1'/%3E%3Ccircle cx='900' cy='40' r='1.4'/%3E%3Ccircle cx='1150' cy='300' r='1'/%3E%3Ccircle cx='980' cy='500' r='1.2'/%3E%3Ccircle cx='360' cy='520' r='1'/%3E%3Ccircle cx='600' cy='250' r='.9'/%3E%3Ccircle cx='1120' cy='460' r='1.3'/%3E%3Ccircle cx='60' cy='200' r='1'/%3E%3C/g%3E%3C/svg%3E") center/cover no-repeat}
+
+/* Secciones */
+.section{padding-block:var(--s-8)}
+.section + .section{border-top:1px solid var(--noche-600)}
+.section-head{max-width:var(--w-text);margin-bottom:var(--s-6)}
+.section-head h2{margin-top:0}
+
+/* Ficha de juego */
+.game{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s-7);align-items:center;background:var(--noche-800);border:1px solid var(--noche-600);border-radius:var(--r-m);padding:var(--s-7);overflow:hidden}
+.game-text{min-width:0}
+.game-logo{width:min(100%,300px);margin:0 0 var(--s-4) -8px}
+.game h3{font:400 var(--t-h2)/1.2 var(--font-display);margin:0 0 var(--s-3)}
+
+/* Pósters */
+.posters{display:flex;justify-content:center;align-items:flex-end;padding:var(--s-4) 0}
+.poster{width:34%;aspect-ratio:2/3;object-fit:cover;border-radius:var(--r-s);box-shadow:var(--sombra-poster);border:1px solid rgba(247,241,236,.12);max-width:100%}
+.posters .poster:nth-child(1){transform:rotate(-7deg) translate(18%,4%)}
+.posters .poster:nth-child(2){position:relative;z-index:1;width:38%}
+.posters .poster:nth-child(3){transform:rotate(7deg) translate(-18%,4%)}
+.cartelera{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--s-4);margin:0;padding:0;list-style:none}
+.cartelera figure{margin:0}
+.cartelera .poster{width:100%}
+.cartelera figcaption{margin-top:var(--s-2);font-size:var(--t-small);line-height:1.35;color:var(--luna-tenue)}
+
+/* Rasgos (Cinemiau) */
+.rasgos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-5) var(--s-7);margin:0;padding:0;list-style:none}
+.rasgos li{min-width:0;padding-top:var(--s-4);border-top:1px solid var(--acento-filete)}
+.rasgos h3{margin:0 0 var(--s-1)}
+.rasgos p{margin:0;color:var(--luna-tenue)}
+
+/* Contacto */
+.correo{font:400 clamp(1.4rem,3.4vw,2.1rem)/1.2 var(--font-display);overflow-wrap:anywhere}
+
+/* Documento (privacidad, condiciones) */
+.doc{padding-block:var(--s-7) var(--s-8)}
+.doc .wrap{max-width:calc(var(--w-text) + 40px)}
+.doc h2{font-size:1.55rem;padding-top:var(--s-5);border-top:1px solid var(--noche-600)}
+.doc ul{padding-left:0;list-style:none}
+.doc li{position:relative;padding-left:24px;margin:0 0 var(--s-3)}
+.doc li::before{content:"";position:absolute;left:0;top:.5em;width:11px;height:11px;background:var(--glicina);-webkit-mask:var(--estrella) center/contain no-repeat;mask:var(--estrella) center/contain no-repeat}
+.doc .card{background:var(--noche-800);border:1px solid var(--noche-600);border-radius:var(--r-m);padding:var(--s-5) var(--s-5) var(--s-2);margin:var(--s-5) 0}
+.doc table{width:100%;border-collapse:collapse;font-size:var(--t-small)}
+.doc th,.doc td{border-bottom:1px solid var(--noche-600);padding:var(--s-2);text-align:left;vertical-align:top}
+
+/* Pie */
+.site-footer{border-top:1px solid var(--noche-600);background:var(--noche-800);color:var(--niebla);font-size:var(--t-small)}
+.site-footer .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s-4);padding-block:var(--s-6)}
+.site-footer img{width:150px}
+.site-footer p{margin:0}
+.site-footer a{color:var(--luna-tenue)}
+
+@media (max-width:820px){
+  .hero .wrap,.game{grid-template-columns:minmax(0,1fr)}
+  .hero .wrap{padding-block:var(--s-7)}
+  .hero-art{width:min(80%,340px);order:-1}
+  .hero-art.posters{order:0;width:min(100%,420px)}
+  .game{padding:var(--s-5)}
+  .cartelera{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .rasgos{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:480px){
+  .brand .brand-word{width:112px}
+  .site-nav{gap:var(--s-1) var(--s-4)}
+  .site-nav a{letter-spacing:.14em}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
