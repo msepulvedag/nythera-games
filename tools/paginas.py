@@ -39,7 +39,7 @@ def head(lang, title, desc, page, extra=''):
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/Marcellus.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Figtree.woff2" as="font" type="font/woff2" crossorigin>
-{extra}{alts}<link rel="stylesheet" href="/style.css?v=5">
+{extra}{alts}<link rel="stylesheet" href="/style.css?v=6">
 </head>
 '''
 
@@ -65,7 +65,7 @@ def footer(lang):
     u = UI[lang]; R = lambda k: ROUTES[k][lang]
     return f'''<footer class="site-footer"><div class="wrap">
 <div class="footer-brand"><img class="marca" src="/assets/img/nythera-wordmark.png" alt="Nythera Games" width="150" height="34" loading="lazy"><p>{u['f_tag']}</p><p><a href="mailto:contacto@nythera.games">contacto@nythera.games</a></p></div>
-<nav class="footer-col" aria-label="{u['f_studio']}"><h2>{u['f_studio']}</h2><ul><li><a href="{R('about')}">{u['f_about']}</a></li><li><a href="{R('home')}#contacto">{u['f_contact']}</a></li></ul></nav>
+<nav class="footer-col" aria-label="{u['f_studio']}"><h2>{u['f_studio']}</h2><ul><li><a href="{R('about')}">{u['f_about']}</a></li><li><a href="mailto:contacto@nythera.games">{u['f_contact']}</a></li></ul></nav>
 <nav class="footer-col" aria-label="{u['f_games']}"><h2>{u['f_games']}</h2><ul><li><a href="{R('cinemiau')}">Cinemiau</a></li><li><a href="{R('privacy')}">{u['f_privacy']}</a></li><li><a href="{R('terms')}">{u['f_terms']}</a></li></ul></nav>
 <p class="footer-legal">© 2026 Nythera Games · {u['f_place']}</p>
 </div></footer>'''
@@ -88,22 +88,23 @@ T = {
   home_desc='Nythera Games: estudio independiente de juegos móviles. Cinemiau: puzle de gatos y cine.',
   eyebrow='Estudio independiente', h1='Juegos pequeños para noches tranquilas',
   lead='Hacemos juegos móviles con cariño: fáciles de empezar, sin cuentas y sin letra pequeña.',
-  cta1='Conocer Cinemiau', cta2='Escríbenos',
+  cta1='Conocer Cinemiau',
   nyx_alt='Ilustración: Nyx, diosa de la noche, juega con su móvil en su cama bajo una luna creciente',
   games_eyebrow='Nuestros juegos', games_h2='El primer estreno',
   game_name='Cinemiau: Puzzle de Gatos', soon='Próximamente',
   game_text='Ordena piedras de colores, completa el pixel art y descubre el póster de una película… ¡protagonizada por gatos!',
   game_cta='Ver Cinemiau',
-  contact_eyebrow='Contacto', contact_h2='¿Una duda, una idea o un problema?',
-  contact_lead='Si es sobre un juego, cuéntanos tu dispositivo y la versión de la app.',
   c_title='Cinemiau: Puzzle de Gatos · Nythera Games',
   c_desc='Cinemiau es un puzle relajado de ordenar colores y pixel art con pósters de cine protagonizados por gatos. Gratis, sin cuentas y sin conexión.',
   c_lead='Ordena piedras de colores, completa el pixel art y gira la carta para descubrir el póster de una película… ¡protagonizada por gatos!',
+  steps=[('Ordena por colores', 'Toca un grupo de piedras del mismo color, guárdalo en la reserva si no tiene sitio y llévalo a sus huecos.'),
+         ('Completa el pixel art', 'El tablero se arma como un mosaico. Al colocar la última piedra se revela el cuadro y aparece el título.'),
+         ('Descubre el póster', 'La carta gira y muestra el póster de la película: una parodia original protagonizada por gatos.'),
+         ('Llena tu cartelera', 'Cada estreno se guarda en tu Cartelera. Más de 100 películas, del terror a la ciencia ficción.')],
+  step_alt='Captura de Cinemiau: {}',
+  play_h3='Juega a tu manera',
+  play=['Gratis y sin cuentas: tu progreso se guarda en tu dispositivo.', 'Funciona sin conexión.', 'Los anuncios empiezan en el nivel 9 y se quitan con una compra única.', 'Pistas si te quedas pensando y música relajante que puedes silenciar.'],
   how_eyebrow='Cómo se juega', how_h2='Un estreno por cada puzle',
-  feats=[('Ordena colores', 'Un juego de ordenar piedras fácil de aprender y difícil de soltar.'),
-         ('Completa el pixel art', 'Tableros grandes de pixel art, con pista automática opcional.'),
-         ('Llena tu cartelera', 'Cada nivel terminado gira la carta y suma un estreno a tu cartelera.'),
-         ('Juega a tu manera', 'Gratis y sin cuentas, y funciona sin conexión. Los anuncios empiezan en el nivel 9 y se quitan con una compra única.')],
   wall_eyebrow='En cartelera', wall_h2='Algunos estrenos que vas a descubrir', poster_alt='Póster de {}',
   sup_eyebrow='Soporte', sup_h2='¿Tienes una duda o encontraste un problema?',
   sup_p='Escríbenos a <a href="mailto:contacto@nythera.games">contacto@nythera.games</a> e indica tu dispositivo y la versión de la app.',
@@ -115,22 +116,23 @@ T = {
   home_desc='Nythera Games: an independent mobile game studio. Cinemiau: a cat and movie puzzle.',
   eyebrow='Independent studio', h1='Small games for quiet nights',
   lead='We make mobile games with care: easy to start, no accounts and no fine print.',
-  cta1='Meet Cinemiau', cta2='Write to us',
+  cta1='Meet Cinemiau',
   nyx_alt='Illustration: Nyx, goddess of the night, plays on her phone in bed under a crescent moon',
   games_eyebrow='Our games', games_h2='The first premiere',
   game_name='Cinemiau: Cat Puzzle', soon='Coming soon',
   game_text='Sort colored stones, finish the pixel art and reveal a movie poster starring… cats!',
   game_cta='See Cinemiau',
-  contact_eyebrow='Contact', contact_h2='A question, an idea or a problem?',
-  contact_lead='If it is about a game, tell us your device and the app version.',
   c_title='Cinemiau: Cat Puzzle · Nythera Games',
   c_desc='Cinemiau is a relaxing color sort and pixel art puzzle with movie posters starring cats. Free, no accounts, works offline.',
   c_lead='Sort colored stones, finish the pixel art and flip the card to reveal a movie poster starring… cats!',
+  steps=[('Sort by color', "Tap a group of stones of the same color, keep it in the reserve if there's no room yet, and drop it into its spots."),
+         ('Finish the pixel art', 'The board builds up like a mosaic. When the last stone lands, the artwork is revealed and the title appears.'),
+         ('Reveal the poster', 'The card flips to show the movie poster: an original parody starring cats.'),
+         ('Fill your poster wall', 'Every premiere is saved in Now showing. Over 100 movies, from horror to sci-fi.')],
+  step_alt='Cinemiau screenshot: {}',
+  play_h3='Play your way',
+  play=['Free with no accounts: your progress stays on your device.', 'Works offline.', 'Ads start at level 9 and a one-time purchase removes them.', 'Hints when you get stuck, and relaxing music you can mute.'],
   how_eyebrow='How it plays', how_h2='One premiere for every puzzle',
-  feats=[('Sort colors', 'A stone sorting puzzle that is easy to learn and hard to put down.'),
-         ('Finish the pixel art', 'Big pixel art boards with an optional automatic hint.'),
-         ('Fill your poster wall', 'Every finished level flips the card and adds a premiere to your wall.'),
-         ('Play your way', 'Free, no accounts, and it works offline. Ads start at level 9 and a one-time purchase removes them.')],
   wall_eyebrow='Now showing', wall_h2='A few premieres you will discover', poster_alt='Poster for {}',
   sup_eyebrow='Support', sup_h2='Questions or found a problem?',
   sup_p='Email <a href="mailto:contacto@nythera.games">contacto@nythera.games</a> and tell us your device and the app version.',
@@ -142,22 +144,23 @@ T = {
   home_desc='Nythera Games: estúdio independente de jogos para celular. Cinemiau: quebra-cabeça de gatos e cinema.',
   eyebrow='Estúdio independente', h1='Jogos pequenos para noites tranquilas',
   lead='Fazemos jogos para celular com carinho: fáceis de começar, sem contas e sem letras miúdas.',
-  cta1='Conhecer o Cinemiau', cta2='Fale conosco',
+  cta1='Conhecer o Cinemiau',
   nyx_alt='Ilustração: Nyx, deusa da noite, joga no celular na cama sob uma lua crescente',
   games_eyebrow='Nossos jogos', games_h2='A primeira estreia',
   game_name='Cinemiau: Puzzle de Gatos', soon='Em breve',
   game_text='Ordene pedras coloridas, complete o pixel art e descubra o pôster de um filme… estrelado por gatos!',
   game_cta='Ver o Cinemiau',
-  contact_eyebrow='Contato', contact_h2='Uma dúvida, uma ideia ou um problema?',
-  contact_lead='Se for sobre um jogo, conte qual é o seu dispositivo e a versão do app.',
   c_title='Cinemiau: Puzzle de Gatos · Nythera Games',
   c_desc='Cinemiau é um quebra-cabeça relaxante de ordenar cores e pixel art com pôsteres de cinema estrelados por gatos. Grátis, sem contas e offline.',
   c_lead='Ordene pedras coloridas, complete o pixel art e vire a carta para descobrir o pôster de um filme… estrelado por gatos!',
+  steps=[('Ordene por cores', 'Toque em um grupo de pedras da mesma cor, guarde-o na reserva se ainda não houver espaço e leve-o até os seus lugares.'),
+         ('Complete o pixel art', 'O tabuleiro se monta como um mosaico. Ao colocar a última pedra, o quadro é revelado e o título aparece.'),
+         ('Descubra o pôster', 'A carta gira e mostra o pôster do filme: uma paródia original estrelada por gatos.'),
+         ('Encha o seu mural', 'Cada estreia fica guardada em Em cartaz. Mais de 100 filmes, do terror à ficção científica.')],
+  step_alt='Captura do Cinemiau: {}',
+  play_h3='Jogue do seu jeito',
+  play=['Grátis e sem contas: o seu progresso fica no seu dispositivo.', 'Funciona offline.', 'Os anúncios começam no nível 9 e são removidos com uma compra única.', 'Dicas quando você travar e música relaxante que dá para silenciar.'],
   how_eyebrow='Como se joga', how_h2='Uma estreia a cada quebra-cabeça',
-  feats=[('Ordene cores', 'Um jogo de ordenar pedras fácil de aprender e difícil de largar.'),
-         ('Complete o pixel art', 'Tabuleiros grandes de pixel art, com dica automática opcional.'),
-         ('Encha o seu mural', 'Cada fase concluída vira a carta e soma uma estreia ao seu mural de pôsteres.'),
-         ('Jogue do seu jeito', 'Grátis, sem contas e funciona offline. Os anúncios começam no nível 9 e são removidos com uma compra única.')],
   wall_eyebrow='Em cartaz', wall_h2='Algumas estreias que você vai descobrir', poster_alt='Pôster de {}',
   sup_eyebrow='Suporte', sup_h2='Tem uma dúvida ou encontrou um problema?',
   sup_p='Escreva para <a href="mailto:contacto@nythera.games">contacto@nythera.games</a> e informe o seu dispositivo e a versão do app.',
@@ -187,7 +190,7 @@ def home(lang):
 <p class="eyebrow">{t['eyebrow']}</p>
 <h1 class="display">{t['h1']}</h1>
 <p class="lead">{t['lead']}</p>
-<div class="actions"><a class="btn btn--primary" href="{ROUTES['cinemiau'][lang]}">{t['cta1']}</a><a class="btn btn--ghost" href="#contacto">{t['cta2']}</a></div>
+<div class="actions"><a class="btn btn--primary" href="{ROUTES['cinemiau'][lang]}">{t['cta1']}</a></div>
 </div>
 </div>
 </div>
@@ -213,16 +216,6 @@ def home(lang):
 </div>
 </section>
 
-<section class="section" id="contacto" aria-labelledby="contacto-h">
-<div class="wrap">
-<div class="section-head">
-<p class="eyebrow">{t['contact_eyebrow']}</p>
-<h2 id="contacto-h">{t['contact_h2']}</h2>
-<p class="lead">{t['contact_lead']}</p>
-<p class="correo"><a href="mailto:contacto@nythera.games">contacto@nythera.games</a></p>
-</div>
-</div>
-</section>
 </main>
 {footer(lang)}
 </body>
@@ -233,7 +226,10 @@ def home(lang):
 def cinemiau(lang):
     t = T[lang]; idx = {'es': 1, 'en': 2, 'pt': 3}[lang]
     hero_fan = ''.join(f'<img class="poster" src="{poster_src(lang, POSTERS[i][0])}" alt="" width="400" height="600">\n' for i in (3, 1, 5))
-    feats = ''.join(f'<li><h3>{a}</h3><p>{b}</p></li>\n' for a, b in t['feats'])
+    steps = ''.join(
+        f'<li class="paso"><img class="captura" src="/assets/img/cinemiau/capturas/{lang}/paso-{n}.webp" alt="{t["step_alt"].format(a)}" width="560" height="1218" loading="lazy">'
+        f'<p class="paso-num">{n:02d}</p><h3>{a}</h3><p>{b}</p></li>\n' for n, (a, b) in enumerate(t['steps'], 1))
+    play = ''.join(f'<li>{x}</li>' for x in t['play'])
     wall = ''.join(
         f'<li><figure><img class="poster" src="{poster_src(lang, p[0])}" alt="{t["poster_alt"].format(p[idx])}" width="400" height="600" loading="lazy"><figcaption>{p[idx]}</figcaption></figure></li>\n'
         for p in POSTERS)
@@ -258,8 +254,9 @@ def cinemiau(lang):
 <section class="section" aria-labelledby="como">
 <div class="wrap">
 <div class="section-head"><p class="eyebrow">{t['how_eyebrow']}</p><h2 id="como">{t['how_h2']}</h2></div>
-<ul class="rasgos">
-{feats}</ul>
+<ol class="pasos">
+{steps}</ol>
+<div class="jugar"><h3>{t['play_h3']}</h3><ul class="stars">{play}</ul></div>
 </div>
 </section>
 
@@ -421,13 +418,13 @@ for page in ('privacy', 'terms'):
         s, n = re.subn(r'<footer class="site-footer">.*?</footer>', lambda m: footer(l), s, flags=re.S); assert n == 1, p
         s = re.sub(r'<link rel="alternate" hreflang[^>]*>\n', '', s)
         alts = ''.join(f'<link rel="alternate" hreflang="{x}" href="https://www.nythera.games{ROUTES[page][x]}">\n' for x in LANGS)
-        s = re.sub(r'<link rel="stylesheet" href="/style.css\?v=\d+">', lambda m: alts + '<link rel="stylesheet" href="/style.css?v=5">', s)
+        s = re.sub(r'<link rel="stylesheet" href="/style.css\?v=\d+">', lambda m: alts + '<link rel="stylesheet" href="/style.css?v=6">', s)
         p.write_text(s); print('updated', p.relative_to(ROOT))
 
 p = ROOT / '404.html'; s = p.read_text()
 s, n = re.subn(r'<header class="site-header">.*?</header>', lambda m: header('es', 'home').replace(' aria-current="page"', ''), s, flags=re.S); assert n == 1
 s, n = re.subn(r'<footer class="site-footer">.*?</footer>', lambda m: footer('es'), s, flags=re.S); assert n == 1
-s = re.sub(r'/style\.css\?v=\d+', '/style.css?v=5', s)
+s = re.sub(r'/style\.css\?v=\d+', '/style.css?v=6', s)
 s = s.replace('<p>Esta página no existe. <a href="/">Volver al inicio</a>.</p>',
               '<p>Esta página no existe. <a href="/">Volver al inicio</a>.</p><p lang="en">This page does not exist. <a href="/en/">Go to the home page</a>.</p><p lang="pt">Esta página não existe. <a href="/pt/">Voltar ao início</a>.</p>')
 p.write_text(s); print('updated 404.html')
