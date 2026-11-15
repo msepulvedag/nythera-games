@@ -14,7 +14,7 @@
   --noche-800:#141020;   /* superficies: tarjetas, pie */
   --noche-700:#1E1730;   /* superficie elevada, hover */
   --noche-600:#2C2244;   /* líneas finas y bordes */
-  --noche-cielo:#090616; /* fondo de la ilustración de Nyx; solo en su héroe */
+  --noche-cielo:#050813; /* fondo de la ilustración de Nyx; solo en su héroe */
   --luna:#F7F1EC;        /* texto principal, botón principal */
   --luna-tenue:#CFC5DA;  /* texto secundario */
   --niebla:#9488A6;      /* leyendas, metadatos */
@@ -135,10 +135,13 @@ p{margin:0 0 var(--s-4)}
 .hero-art{justify-self:center;width:min(100%,460px)}
 .cielo{position:absolute;inset:0;pointer-events:none;opacity:.5;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='560' fill='%23F7F1EC'%3E%3Cg%3E%3Cpath transform='translate(80 70) scale(.5)' d='M12 0C12.9 8 16 11.1 24 12 16 12.9 12.9 16 12 24 11.1 16 8 12.9 0 12 8 11.1 11.1 8 12 0Z'/%3E%3Cpath transform='translate(520 40) scale(.35)' d='M12 0C12.9 8 16 11.1 24 12 16 12.9 12.9 16 12 24 11.1 16 8 12.9 0 12 8 11.1 11.1 8 12 0Z'/%3E%3Cpath transform='translate(1080 120) scale(.6)' d='M12 0C12.9 8 16 11.1 24 12 16 12.9 12.9 16 12 24 11.1 16 8 12.9 0 12 8 11.1 11.1 8 12 0Z'/%3E%3Cpath transform='translate(640 500) scale(.4)' d='M12 0C12.9 8 16 11.1 24 12 16 12.9 12.9 16 12 24 11.1 16 8 12.9 0 12 8 11.1 11.1 8 12 0Z'/%3E%3Cpath transform='translate(40 480) scale(.3)' d='M12 0C12.9 8 16 11.1 24 12 16 12.9 12.9 16 12 24 11.1 16 8 12.9 0 12 8 11.1 11.1 8 12 0Z'/%3E%3C/g%3E%3Cg opacity='.7'%3E%3Ccircle cx='300' cy='40' r='1.2'/%3E%3Ccircle cx='420' cy='160' r='1'/%3E%3Ccircle cx='180' cy='300' r='1.3'/%3E%3Ccircle cx='760' cy='90' r='1'/%3E%3Ccircle cx='900' cy='40' r='1.4'/%3E%3Ccircle cx='1150' cy='300' r='1'/%3E%3Ccircle cx='980' cy='500' r='1.2'/%3E%3Ccircle cx='360' cy='520' r='1'/%3E%3Ccircle cx='600' cy='250' r='.9'/%3E%3Ccircle cx='1120' cy='460' r='1.3'/%3E%3Ccircle cx='60' cy='200' r='1'/%3E%3C/g%3E%3C/svg%3E") center/cover no-repeat}
 
-/* Héroe con ilustración de Nyx: la imagen ocupa todo el fondo y el texto va a la izquierda */
-.hero--nyx{background:var(--noche-cielo)}
-.hero--nyx .hero-bg{position:absolute;top:0;right:0;width:min(66%,1100px);height:100%;object-fit:cover;object-position:right center;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%);mask-image:linear-gradient(90deg,transparent 0,#000 22%)}
-.hero--nyx .wrap{z-index:1;grid-template-columns:minmax(0,31rem);min-height:clamp(520px,44vw,680px)}
+/* Héroe con ilustración de Nyx: tarjeta horizontal al ancho del contenido; texto a la izquierda, imagen a la derecha */
+.hero-nyx{padding-block:var(--s-6) var(--s-7)}
+.hero-card{position:relative;overflow:hidden;display:flex;align-items:center;min-height:clamp(480px,40vw,560px);background:var(--noche-cielo);border:1px solid var(--noche-600);border-radius:var(--r-m)}
+.hero-card .hero-bg{position:absolute;top:0;right:0;width:66%;height:100%;object-fit:cover;object-position:right center;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24%);mask-image:linear-gradient(90deg,transparent 0,#000 24%)}
+.hero-card .hero-text{position:relative;z-index:1;min-width:0;max-width:34rem;padding:var(--s-7)}
+.hero-card .display{font-size:clamp(2.6rem,4.4vw,3.6rem)}
+.hero-card .lead{max-width:26rem}
 
 /* Secciones */
 .section{padding-block:var(--s-8)}
@@ -185,24 +188,43 @@ p{margin:0 0 var(--s-4)}
 
 /* Pie */
 .site-footer{border-top:1px solid var(--noche-600);background:var(--noche-800);color:var(--niebla);font-size:var(--t-small)}
-.site-footer .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s-4);padding-block:var(--s-6)}
-.site-footer img{width:150px}
-.site-footer p{margin:0}
-.site-footer a{color:var(--luna-tenue)}
+.site-footer .wrap{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:var(--s-6);padding-block:var(--s-7) var(--s-6)}
+.site-footer img{width:150px;margin-bottom:var(--s-3)}
+.site-footer p{margin:0 0 var(--s-2)}
+.site-footer a{color:var(--luna-tenue);text-decoration:none}
+.site-footer a:hover{color:var(--luna);text-decoration:underline}
+.footer-col h2{margin:0 0 var(--s-3);font:600 var(--t-label)/1.2 var(--font-label);letter-spacing:.24em;text-transform:uppercase;color:var(--luna)}
+.footer-col ul{list-style:none;margin:0;padding:0;display:grid;gap:var(--s-2)}
+.footer-legal{grid-column:1/-1;padding-top:var(--s-5);border-top:1px solid var(--noche-600)}
+
+/* Acerca de */
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:var(--s-7);align-items:start}
+.prose{max-width:var(--w-text);color:var(--luna-tenue)}
+.prose h3{color:var(--luna);margin-top:var(--s-6)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:var(--s-5) var(--s-6);margin:0}
+.facts div{min-width:0;padding-top:var(--s-3);border-top:1px solid var(--noche-600)}
+.facts dt{font:600 var(--t-label)/1.2 var(--font-label);letter-spacing:.24em;text-transform:uppercase;color:var(--acento);margin-bottom:var(--s-2)}
+.facts dd{margin:0;overflow-wrap:anywhere}
+.hero--about .hero-art{width:min(100%,380px)}
 
 @media (max-width:820px){
   .hero .wrap,.game{grid-template-columns:minmax(0,1fr)}
   .hero .wrap{padding-block:var(--s-7)}
   .hero-art{width:min(80%,340px);order:-1}
   .hero-art.posters{order:0;width:min(100%,420px)}
-  .hero--nyx .hero-bg{position:static;display:block;width:100%;height:auto;aspect-ratio:1/1;max-height:70vh;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
-  .hero--nyx .wrap{min-height:0;padding-block:0 var(--s-7);margin-top:calc(-1 * var(--s-7))}
+  .hero-nyx{padding-top:var(--s-4)}
+  .hero-card{display:block;min-height:0}
+  .hero-card .hero-bg{position:static;display:block;width:100%;height:auto;aspect-ratio:1/1;max-height:60vh;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+  .hero-card .hero-text{padding:0 var(--s-5) var(--s-6);margin-top:calc(-1 * var(--s-6))}
   .header-end{display:contents}
   .site-header .lang{order:1}
   .site-header .site-nav{order:2;width:100%}
   .game{padding:var(--s-5)}
   .cartelera{grid-template-columns:repeat(3,minmax(0,1fr))}
   .rasgos{grid-template-columns:minmax(0,1fr)}
+  .split{grid-template-columns:minmax(0,1fr);gap:0}
+  .site-footer .wrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .footer-brand{grid-column:1/-1}
 }
 @media (max-width:480px){
   .brand .brand-word{width:112px}

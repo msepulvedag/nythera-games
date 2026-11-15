@@ -1,17 +1,24 @@
-"""Genera portada y Cinemiau en ES/EN/PT y aplica cabecera, selector de idioma y pie a las páginas legales y 404. Uso: python3 tools/paginas.py"""
+"""Genera portada, Cinemiau y Acerca de en ES/EN/PT y aplica cabecera, selector de idioma y pie a las páginas legales y 404. Uso: python3 tools/paginas.py"""
 import re, pathlib, sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 LANGS = ['es', 'en', 'pt']
 ROUTES = {
     'home': {'es': '/', 'en': '/en/', 'pt': '/pt/'},
+    'about': {'es': '/nosotros/', 'en': '/en/about/', 'pt': '/pt/sobre/'},
     'cinemiau': {'es': '/cinemiau/', 'en': '/cinemiau/en/', 'pt': '/cinemiau/pt/'},
     'privacy': {'es': '/cinemiau/privacidad/', 'en': '/cinemiau/privacy/', 'pt': '/cinemiau/privacidade/'},
     'terms': {'es': '/cinemiau/condiciones/', 'en': '/cinemiau/terms/', 'pt': '/cinemiau/termos/'},
 }
 UI = {
-    'es': dict(home='Inicio', privacy='Privacidad', terms='Condiciones', brand='Nythera Games, inicio', nav='Principal', langnav='Idioma'),
-    'en': dict(home='Home', privacy='Privacy', terms='Terms', brand='Nythera Games, home', nav='Main', langnav='Language'),
-    'pt': dict(home='Início', privacy='Privacidade', terms='Termos', brand='Nythera Games, início', nav='Principal', langnav='Idioma'),
+    'es': dict(home='Inicio', about='Nosotros', privacy='Privacidad', terms='Condiciones', brand='Nythera Games, inicio', nav='Principal', langnav='Idioma',
+               f_studio='Nythera', f_about='Acerca de nosotros', f_contact='Contacto', f_games='Nuestros juegos',
+               f_privacy='Política de privacidad', f_terms='Condiciones del servicio', f_tag='Juegos pequeños para noches tranquilas.', f_place='Santiago, Chile'),
+    'en': dict(home='Home', about='About', privacy='Privacy', terms='Terms', brand='Nythera Games, home', nav='Main', langnav='Language',
+               f_studio='Nythera', f_about='About us', f_contact='Contact', f_games='Our games',
+               f_privacy='Privacy policy', f_terms='Terms of service', f_tag='Small games for quiet nights.', f_place='Santiago, Chile'),
+    'pt': dict(home='Início', about='Sobre nós', privacy='Privacidade', terms='Termos', brand='Nythera Games, início', nav='Principal', langnav='Idioma',
+               f_studio='Nythera', f_about='Sobre nós', f_contact='Contato', f_games='Nossos jogos',
+               f_privacy='Política de privacidade', f_terms='Termos de serviço', f_tag='Jogos pequenos para noites tranquilas.', f_place='Santiago, Chile'),
 }
 LANGNAME = {'es': 'Español', 'en': 'English', 'pt': 'Português'}
 
@@ -32,7 +39,7 @@ def head(lang, title, desc, page, extra=''):
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/Marcellus.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Figtree.woff2" as="font" type="font/woff2" crossorigin>
-{extra}{alts}<link rel="stylesheet" href="/style.css?v=3">
+{extra}{alts}<link rel="stylesheet" href="/style.css?v=5">
 </head>
 '''
 
@@ -42,7 +49,7 @@ def header(lang, page):
     def nav_link(key, label):
         cur = ' aria-current="page"' if key == page else ''
         return f'<a href="{ROUTES[key][lang]}"{cur}>{label}</a>'
-    nav = nav_link('home', u['home']) + nav_link('cinemiau', 'Cinemiau') + nav_link('privacy', u['privacy'])
+    nav = nav_link('home', u['home']) + nav_link('cinemiau', 'Cinemiau') + nav_link('about', u['about'])
     CUR = ' aria-current="true"'
     langs = ''.join(
         f'<a href="{ROUTES[page][l]}" hreflang="{l}" lang="{l}" title="{LANGNAME[l]}"{CUR if l == lang else ""}>{l.upper()}</a>'
@@ -55,10 +62,13 @@ def header(lang, page):
 
 
 def footer(lang):
-    u = UI[lang]
-    return ('<footer class="site-footer"><div class="wrap"><img class="marca" src="/assets/img/nythera-wordmark.png" alt="Nythera Games" width="150" height="34" loading="lazy">'
-            f'<p>© 2026 Nythera Games · <a href="{ROUTES["privacy"][lang]}">{u["privacy"]}</a> · <a href="{ROUTES["terms"][lang]}">{u["terms"]}</a> · '
-            '<a href="mailto:contacto@nythera.games">contacto@nythera.games</a></p></div></footer>')
+    u = UI[lang]; R = lambda k: ROUTES[k][lang]
+    return f'''<footer class="site-footer"><div class="wrap">
+<div class="footer-brand"><img class="marca" src="/assets/img/nythera-wordmark.png" alt="Nythera Games" width="150" height="34" loading="lazy"><p>{u['f_tag']}</p><p><a href="mailto:contacto@nythera.games">contacto@nythera.games</a></p></div>
+<nav class="footer-col" aria-label="{u['f_studio']}"><h2>{u['f_studio']}</h2><ul><li><a href="{R('about')}">{u['f_about']}</a></li><li><a href="{R('home')}#contacto">{u['f_contact']}</a></li></ul></nav>
+<nav class="footer-col" aria-label="{u['f_games']}"><h2>{u['f_games']}</h2><ul><li><a href="{R('cinemiau')}">Cinemiau</a></li><li><a href="{R('privacy')}">{u['f_privacy']}</a></li><li><a href="{R('terms')}">{u['f_terms']}</a></li></ul></nav>
+<p class="footer-legal">© 2026 Nythera Games · {u['f_place']}</p>
+</div></footer>'''
 
 
 POSTERS = [  # slug, es, en, pt
@@ -169,14 +179,16 @@ def home(lang):
                 '<link rel="preload" as="image" href="/assets/img/nyx-hero.jpg" media="(min-width:821px)">\n') + f'''<body>
 {header(lang, 'home')}
 <main>
-<section class="hero hero--nyx">
-<picture><source media="(max-width:820px)" srcset="/assets/img/nyx-hero-movil.jpg"><img class="hero-bg" src="/assets/img/nyx-hero.jpg" alt="{t['nyx_alt']}" width="1536" height="1024"></picture>
+<section class="hero-nyx">
 <div class="wrap">
+<div class="hero-card">
+<picture><source media="(max-width:820px)" srcset="/assets/img/nyx-hero-movil.jpg"><img class="hero-bg" src="/assets/img/nyx-hero.jpg" alt="{t['nyx_alt']}" width="1536" height="1024"></picture>
 <div class="hero-text">
 <p class="eyebrow">{t['eyebrow']}</p>
 <h1 class="display">{t['h1']}</h1>
 <p class="lead">{t['lead']}</p>
 <div class="actions"><a class="btn btn--primary" href="{ROUTES['cinemiau'][lang]}">{t['cta1']}</a><a class="btn btn--ghost" href="#contacto">{t['cta2']}</a></div>
+</div>
 </div>
 </div>
 </section>
@@ -278,6 +290,116 @@ def cinemiau(lang):
 '''
 
 
+A = {
+ 'es': dict(
+  title='Acerca de nosotros · Nythera Games',
+  desc='Nythera Games es un estudio independiente de juegos móviles en Santiago, Chile. Hacemos juegos tranquilos, sin cuentas y sin letra pequeña.',
+  eyebrow='Acerca de nosotros', h1='Somos Nythera Games',
+  lead='Un estudio independiente de juegos móviles con base en Santiago, Chile.',
+  emblem_alt='Emblema de Nythera: una mujer bajo una luna creciente y tres estrellas',
+  who_eyebrow='Quiénes somos', who_h2='Un estudio pequeño, a propósito',
+  who=['Nythera es un estudio independiente: no dependemos de una editorial ni de inversionistas. Creamos juegos para iPhone y Android, desde la primera idea hasta su publicación en las tiendas.',
+       'Ser pequeños nos permite cuidar cada detalle y responder nosotros mismos cada correo.'],
+  name_h3='Por qué «Nythera»',
+  name_p='El nombre viene de Nyx, la diosa griega de la noche. Pensamos nuestros juegos para el final del día: partidas cortas y tranquilas para jugar en la cama o en el sillón.',
+  aim_eyebrow='Nuestra finalidad', aim_h2='Juegos que respetan tu tiempo',
+  aims=[('Para relajarse', 'Partidas cortas, sin prisa ni cronómetros que estresen.'),
+        ('Sin cuentas', 'No pedimos registros: tu progreso se guarda en tu dispositivo.'),
+        ('Claros con el dinero', 'Si un juego tiene anuncios, decimos dónde aparecen y cómo quitarlos.'),
+        ('En tu idioma', 'Publicamos en español, inglés y portugués.')],
+  facts_eyebrow='En pocas palabras',
+  facts=[('Ubicación', 'Santiago, Chile'), ('Plataformas', 'iPhone y Android'), ('Idiomas', 'Español, English, Português'), ('Primer juego', '<a href="{cinemiau}">Cinemiau: Puzzle de Gatos</a>'), ('Contacto', '<a href="mailto:contacto@nythera.games">contacto@nythera.games</a>')]),
+ 'en': dict(
+  title='About us · Nythera Games',
+  desc='Nythera Games is an independent mobile game studio in Santiago, Chile. We make calm games with no accounts and no fine print.',
+  eyebrow='About us', h1='We are Nythera Games',
+  lead='An independent mobile game studio based in Santiago, Chile.',
+  emblem_alt='Nythera emblem: a woman under a crescent moon and three stars',
+  who_eyebrow='Who we are', who_h2='A small studio, on purpose',
+  who=['Nythera is an independent studio: we do not depend on a publisher or investors. We make games for iPhone and Android, from the first idea to the store release.',
+       'Being small lets us care for every detail and answer every email ourselves.'],
+  name_h3='Why «Nythera»',
+  name_p='The name comes from Nyx, the Greek goddess of the night. We design our games for the end of the day: short, calm sessions to play in bed or on the couch.',
+  aim_eyebrow='Our purpose', aim_h2='Games that respect your time',
+  aims=[('Made to unwind', 'Short sessions, no rush and no stressful timers.'),
+        ('No accounts', 'No sign-ups: your progress stays on your device.'),
+        ('Clear about money', 'If a game has ads, we say where they appear and how to remove them.'),
+        ('In your language', 'We publish in Spanish, English and Portuguese.')],
+  facts_eyebrow='At a glance',
+  facts=[('Location', 'Santiago, Chile'), ('Platforms', 'iPhone and Android'), ('Languages', 'Español, English, Português'), ('First game', '<a href="{cinemiau}">Cinemiau: Cat Puzzle</a>'), ('Contact', '<a href="mailto:contacto@nythera.games">contacto@nythera.games</a>')]),
+ 'pt': dict(
+  title='Sobre nós · Nythera Games',
+  desc='A Nythera Games é um estúdio independente de jogos para celular em Santiago, Chile. Fazemos jogos tranquilos, sem contas e sem letras miúdas.',
+  eyebrow='Sobre nós', h1='Somos a Nythera Games',
+  lead='Um estúdio independente de jogos para celular com sede em Santiago, Chile.',
+  emblem_alt='Emblema da Nythera: uma mulher sob uma lua crescente e três estrelas',
+  who_eyebrow='Quem somos', who_h2='Um estúdio pequeno, de propósito',
+  who=['A Nythera é um estúdio independente: não dependemos de uma editora nem de investidores. Criamos jogos para iPhone e Android, da primeira ideia até a publicação nas lojas.',
+       'Ser pequenos nos permite cuidar de cada detalhe e responder nós mesmos a cada e-mail.'],
+  name_h3='Por que «Nythera»',
+  name_p='O nome vem de Nyx, a deusa grega da noite. Pensamos nossos jogos para o fim do dia: partidas curtas e tranquilas para jogar na cama ou no sofá.',
+  aim_eyebrow='Nossa finalidade', aim_h2='Jogos que respeitam o seu tempo',
+  aims=[('Para relaxar', 'Partidas curtas, sem pressa e sem cronômetros estressantes.'),
+        ('Sem contas', 'Não pedimos cadastro: o seu progresso fica no seu dispositivo.'),
+        ('Claros com o dinheiro', 'Se um jogo tem anúncios, dizemos onde aparecem e como removê-los.'),
+        ('No seu idioma', 'Publicamos em espanhol, inglês e português.')],
+  facts_eyebrow='Em poucas palavras',
+  facts=[('Localização', 'Santiago, Chile'), ('Plataformas', 'iPhone e Android'), ('Idiomas', 'Español, English, Português'), ('Primeiro jogo', '<a href="{cinemiau}">Cinemiau: Puzzle de Gatos</a>'), ('Contato', '<a href="mailto:contacto@nythera.games">contacto@nythera.games</a>')]),
+}
+
+
+def about(lang):
+    a = A[lang]
+    who = ''.join(f'<p>{p}</p>\n' for p in a['who'])
+    aims = ''.join(f'<li><h3>{x}</h3><p>{y}</p></li>\n' for x, y in a['aims'])
+    facts = ''.join(f'<div><dt>{k}</dt><dd>{v.format(cinemiau=ROUTES["cinemiau"][lang])}</dd></div>\n' for k, v in a['facts'])
+    return head(lang, a['title'], a['desc'], 'about') + f'''<body>
+{header(lang, 'about')}
+<main>
+<section class="hero hero--about">
+<div class="cielo" aria-hidden="true"></div>
+<div class="wrap">
+<div class="hero-text">
+<p class="eyebrow">{a['eyebrow']}</p>
+<h1 class="display">{a['h1']}</h1>
+<p class="lead">{a['lead']}</p>
+</div>
+<img class="hero-art marca" src="/assets/img/nythera-emblem.png" alt="{a['emblem_alt']}" width="560" height="535">
+</div>
+</section>
+
+<section class="section" aria-labelledby="quienes">
+<div class="wrap split">
+<div class="section-head"><p class="eyebrow">{a['who_eyebrow']}</p><h2 id="quienes">{a['who_h2']}</h2></div>
+<div class="prose">
+{who}<h3>{a['name_h3']}</h3>
+<p>{a['name_p']}</p>
+</div>
+</div>
+</section>
+
+<section class="section" aria-labelledby="finalidad">
+<div class="wrap">
+<div class="section-head"><p class="eyebrow">{a['aim_eyebrow']}</p><h2 id="finalidad">{a['aim_h2']}</h2></div>
+<ul class="rasgos">
+{aims}</ul>
+</div>
+</section>
+
+<section class="section" aria-labelledby="datos">
+<div class="wrap">
+<div class="section-head"><p class="eyebrow" id="datos">{a['facts_eyebrow']}</p></div>
+<dl class="facts">
+{facts}</dl>
+</div>
+</section>
+</main>
+{footer(lang)}
+</body>
+</html>
+'''
+
+
 def write(route, text):
     p = ROOT / route.strip('/') / 'index.html' if route != '/' else ROOT / 'index.html'
     p.parent.mkdir(parents=True, exist_ok=True)
@@ -288,6 +410,7 @@ def write(route, text):
 for l in LANGS:
     write(ROUTES['home'][l], home(l))
     write(ROUTES['cinemiau'][l], cinemiau(l))
+    write(ROUTES['about'][l], about(l))
 
 # Páginas legales y 404: cambia cabecera, pie, hreflang y versión de la hoja
 for page in ('privacy', 'terms'):
@@ -298,13 +421,13 @@ for page in ('privacy', 'terms'):
         s, n = re.subn(r'<footer class="site-footer">.*?</footer>', lambda m: footer(l), s, flags=re.S); assert n == 1, p
         s = re.sub(r'<link rel="alternate" hreflang[^>]*>\n', '', s)
         alts = ''.join(f'<link rel="alternate" hreflang="{x}" href="https://www.nythera.games{ROUTES[page][x]}">\n' for x in LANGS)
-        s = re.sub(r'<link rel="stylesheet" href="/style.css\?v=\d+">', lambda m: alts + '<link rel="stylesheet" href="/style.css?v=3">', s)
+        s = re.sub(r'<link rel="stylesheet" href="/style.css\?v=\d+">', lambda m: alts + '<link rel="stylesheet" href="/style.css?v=5">', s)
         p.write_text(s); print('updated', p.relative_to(ROOT))
 
 p = ROOT / '404.html'; s = p.read_text()
 s, n = re.subn(r'<header class="site-header">.*?</header>', lambda m: header('es', 'home').replace(' aria-current="page"', ''), s, flags=re.S); assert n == 1
 s, n = re.subn(r'<footer class="site-footer">.*?</footer>', lambda m: footer('es'), s, flags=re.S); assert n == 1
-s = s.replace('/style.css?v=2', '/style.css?v=3')
+s = re.sub(r'/style\.css\?v=\d+', '/style.css?v=5', s)
 s = s.replace('<p>Esta página no existe. <a href="/">Volver al inicio</a>.</p>',
               '<p>Esta página no existe. <a href="/">Volver al inicio</a>.</p><p lang="en">This page does not exist. <a href="/en/">Go to the home page</a>.</p><p lang="pt">Esta página não existe. <a href="/pt/">Voltar ao início</a>.</p>')
 p.write_text(s); print('updated 404.html')

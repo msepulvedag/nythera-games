@@ -2,8 +2,8 @@
 
 Sitio web estático de Nythera Games (GitHub Pages, dominio www.nythera.games).
 
-- Tres idiomas con selector ES/EN/PT en la cabecera: `/`, `/en/`, `/pt/` inicio · `/cinemiau/`, `/cinemiau/en/`, `/cinemiau/pt/` página y soporte · `/cinemiau/privacidad|privacy|privacidade/` privacidad · `/cinemiau/condiciones|terms|termos/` condiciones.
-- Textos de portada y Cinemiau en `tools/paginas.py`; tras editarlos, ejecutar `python3 tools/paginas.py`.
+- Tres idiomas con selector ES/EN/PT en la cabecera: `/`, `/en/`, `/pt/` inicio · `/nosotros/`, `/en/about/`, `/pt/sobre/` acerca de · `/cinemiau/`, `/cinemiau/en/`, `/cinemiau/pt/` página y soporte · `/cinemiau/privacidad|privacy|privacidade/` privacidad · `/cinemiau/condiciones|terms|termos/` condiciones.
+- Textos de portada, Cinemiau, Acerca de, menú y pie en `tools/paginas.py`; tras editarlos, ejecutar `python3 tools/paginas.py`.
 - URLs para las tiendas: soporte `https://www.nythera.games/cinemiau/`, privacidad `https://www.nythera.games/cinemiau/privacidad/`.
 
 ## Diseño
