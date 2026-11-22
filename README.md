@@ -14,6 +14,8 @@ Sitio web estático de Nythera Games (GitHub Pages, dominio www.nythera.games).
 
 - URLs de Luciérnagas para las tiendas: soporte `https://www.nythera.games/luciernagas/`, privacidad `https://www.nythera.games/luciernagas/privacidad/` y condiciones `https://www.nythera.games/luciernagas/condiciones/`.
 
+- La galería de Luciérnagas usa las capturas de Google Play 01, 02, 04 y 05 de `store/capturas/play/` del repo del juego. Portugués reutiliza las capturas en español. La tarjeta de inicio y el héroe usan el gráfico ancho de Google Play. Las imágenes del sitio están en `assets/img/luciernagas/`.
+
 ## Diseño
 
 Sistema «Noche» v1, derivado del logotipo: tokens y componentes en `style.css` (mismos nombres que el sistema de diseño publicado en claude.ai, «Nythera Games»).

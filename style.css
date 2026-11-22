@@ -70,7 +70,7 @@
 [data-product="luciernagas"] .hero,[data-product="luciernagas"].game{background:var(--acento-relleno)}
 [data-product="luciernagas"] .chip--estado{color:#FFD94D}
 .game + .game{margin-top:var(--s-6)}
-.scene-feature{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-m);box-shadow:var(--sombra-poster)}
+.game-cover{width:100%;border-radius:var(--r-m);box-shadow:var(--sombra-poster)}
 
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
@@ -263,10 +263,11 @@ p{margin:0 0 var(--s-4)}
   .site-nav a{letter-spacing:.14em}
 }
 .pasos.pasos--texto{grid-template-columns:repeat(3,minmax(0,1fr))}
-.cartelera.escenas{grid-template-columns:repeat(4,minmax(0,1fr))}
-.escenas .poster{aspect-ratio:9/16}
+.cartelera.capturas{grid-template-columns:repeat(4,minmax(0,1fr))}
+.capturas .poster{aspect-ratio:9/16}
 @media (max-width:620px){
   .pasos.pasos--texto{grid-template-columns:minmax(0,1fr);grid-auto-flow:row;overflow:visible;padding-bottom:0}
-  .cartelera.escenas{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cartelera.capturas{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:min(72%,250px);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:var(--s-4)}
+  .capturas li{scroll-snap-align:start}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}

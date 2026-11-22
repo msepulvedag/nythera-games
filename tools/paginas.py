@@ -230,7 +230,7 @@ def home(lang):
 <p>{game['lead']}</p>
 <div class="actions"><a class="btn btn--primary" href="{ROUTES['luciernagas'][lang]}">{game['cta']}</a></div>
 </div>
-{scene_image('01', 'scene-feature', lazy=True)}
+{fireflies_cover(lazy=True)}
 </article>
 </div>
 </section>
@@ -309,66 +309,81 @@ def cinemiau(lang):
 L = {
     'es': dict(
         label='Luciérnagas', name='Luciérnagas: La última luz', cta='Ver Luciérnagas', title_section='Juego y soporte',
-        desc='Une todas las luciérnagas de un solo trazo y devuelve la luz al bosque. 100 niveles, 10 escenas ilustradas y una historia narrada.',
-        lead='El bosque se ha quedado a oscuras. Solo queda una luciérnaga… y tú. Une todas las luciérnagas de un solo trazo para devolverle la luz al bosque.',
+        desc='Une todas las luciérnagas del tablero de un solo trazo. 100 niveles.',
+        lead='Une todas las luciérnagas del tablero de un solo trazo.',
         steps=[
             ('Une las luciérnagas', 'Dibuja una línea continua que conecte todas las luciérnagas del tablero sin levantar el dedo.'),
             ('Pasa una sola vez', 'Traza el camino sin pasar dos veces por la misma casilla.'),
-            ('Enciende el bosque', 'Cada nivel resuelto ilumina un poco más el bosque. Si te trabas, una pista marca el inicio y muestra un tramo del camino.'),
+            ('Usa una pista', 'Cada nivel ofrece un tablero distinto. Si te trabas, una pista marca el inicio y muestra un tramo del camino.'),
         ],
-        story='La historia', story_title='La última luz del bosque',
-        story_text='Diez escenas ilustradas se iluminan a medida que juegas, con música propia y narración en español e inglés. El texto se resalta palabra a palabra.',
-        scenes=('La última luciérnaga', 'El cazador del puente', 'La abertura', 'El sendero vuelve a brillar'),
+        gallery='Así se ve',
+        screenshots=(
+            'Tablero con un trazo dorado que conecta las luciérnagas.',
+            'Selector de niveles con estrellas y candados.',
+            'Pista que resalta el punto de inicio y parte del camino en verde.',
+            'Pantalla de nivel completado con tres estrellas.',
+        ),
         pace='Juega a tu ritmo',
         play=[
             '100 niveles con dificultad creciente y un tutorial breve.',
             'Sin temporizadores ni vidas. Rejuega niveles para mejorar tus estrellas.',
             'Consigue tres estrellas al resolver sin reiniciar y gana pistas extra con tus rachas.',
             'Ajusta los efectos, la música, la vibración y la narración.',
+            'Una historia narrada.',
         ],
-        ads='Gratis. Los anuncios de AdMob empiezan en el nivel 20 y una compra única los elimina todos.',
+        ads='Gratis. Los anuncios de AdMob empiezan en el nivel 21 y una compra única los elimina todos.',
     ),
     'en': dict(
         label='Fireflies', name='Fireflies: The Last Light', cta='See Fireflies', title_section='Game and support',
-        desc='Connect every firefly in one stroke and bring light back to the forest. 100 levels, 10 illustrated scenes and a narrated story.',
-        lead='The forest has gone dark. Only one firefly is left… and you. Connect every firefly in one stroke to bring light back to the forest.',
+        desc='Connect every firefly on the board in one stroke. 100 levels.',
+        lead='Connect every firefly on the board in one stroke.',
         steps=[
             ('Connect the fireflies', 'Draw one continuous line through every firefly on the board without lifting your finger.'),
             ('Visit each spot once', 'Draw your path without passing through the same spot twice.'),
-            ('Light up the forest', 'Every puzzle you solve lights up more of the forest. If you get stuck, a hint marks the start and shows part of the path.'),
+            ('Use a hint', 'Each level has a different board. If you get stuck, a hint marks the start and shows part of the path.'),
         ],
-        story='The story', story_title='The Last Light in the Forest',
-        story_text='Ten illustrated scenes light up as you play, with original music and narration in English and Spanish. The text is highlighted word by word.',
-        scenes=('The Last Firefly', 'The Hunter on the Bridge', 'The Opening', 'The Path Glows Again'),
+        gallery='What it looks like',
+        screenshots=(
+            'Puzzle board with a golden path connecting the fireflies.',
+            'Level selection screen with stars and locks.',
+            'Hint highlighting the starting point and part of the path in green.',
+            'Level completion screen with three stars.',
+        ),
         pace='Play at your own pace',
         play=[
             '100 levels of growing difficulty and a short tutorial.',
             'No timers or lives. Replay levels to improve your stars.',
             'Earn three stars by solving without restarting and win extra hints with your streaks.',
             'Adjust effects, music, vibration and narration.',
+            'A narrated story.',
         ],
-        ads='Free to play. AdMob ads start at level 20, and a one-time purchase removes them all.',
+        ads='Free to play. AdMob ads start at level 21, and a one-time purchase removes them all.',
     ),
     'pt': dict(
         label='Luciérnagas', name='Luciérnagas: La última luz', cta='Ver Luciérnagas', title_section='Jogo e suporte',
-        desc='Conecte todos os vaga-lumes com um só traço e devolva a luz à floresta. São 100 níveis, 10 cenas ilustradas e uma história narrada.',
-        lead='A floresta ficou às escuras. Só resta um vaga-lume… e você. Conecte todos os vaga-lumes com um só traço para devolver a luz à floresta.',
+        desc='Conecte todos os vaga-lumes do tabuleiro com um só traço. 100 níveis.',
+        lead='Conecte todos os vaga-lumes do tabuleiro com um só traço.',
         steps=[
             ('Conecte os vaga-lumes', 'Desenhe uma linha contínua que passe por todos os vaga-lumes do tabuleiro sem levantar o dedo.'),
             ('Passe uma única vez', 'Trace o caminho sem passar duas vezes pela mesma casa.'),
-            ('Ilumine a floresta', 'Cada nível resolvido ilumina mais um pouco a floresta. Se travar, use uma dica para ver o início e um trecho do caminho.'),
+            ('Use uma dica', 'Cada nível tem um tabuleiro diferente. Se travar, use uma dica para ver o início e um trecho do caminho.'),
         ],
-        story='A história', story_title='A última luz da floresta',
-        story_text='Dez cenas ilustradas se iluminam conforme você joga, com música original e narração com texto destacado palavra por palavra. O jogo está disponível em espanhol e inglês.',
-        scenes=('O último vaga-lume', 'O caçador da ponte', 'A abertura', 'A trilha volta a brilhar'),
+        gallery='Assim é',
+        screenshots=(
+            'Tabuleiro com um traço dourado que conecta os vaga-lumes.',
+            'Seletor de níveis com estrelas e cadeados.',
+            'Dica que destaca em verde o ponto de partida e parte do caminho.',
+            'Tela de nível concluído com três estrelas.',
+        ),
         pace='Jogue no seu ritmo',
         play=[
             '100 níveis com dificuldade crescente e um tutorial breve.',
             'Sem cronômetros nem vidas. Jogue os níveis novamente para melhorar suas estrelas.',
             'Ganhe três estrelas ao resolver sem reiniciar e conquiste dicas extras com suas sequências.',
             'Ajuste os efeitos, a música, a vibração e a narração.',
+            'Uma história narrada.',
         ],
-        ads='Grátis. Os anúncios do AdMob começam no nível 20 e uma compra única remove todos eles.',
+        ads='Grátis. Os anúncios do AdMob começam no nível 21 e uma compra única remove todos eles.',
     ),
 }
 
@@ -379,10 +394,9 @@ def fireflies_logo():
     return f'<img class="game-logo" src="{FIREFLIES_IMAGES}/logo.webp" alt="" width="1300" height="535">'
 
 
-def scene_image(number, css_class, *, lazy):
-    width = 940 if number == '10' else 941
+def fireflies_cover(*, lazy):
     loading = ' loading="lazy"' if lazy else ''
-    return f'<img class="{css_class}" src="{FIREFLIES_IMAGES}/escena_{number}.webp" alt="" width="{width}" height="1672"{loading}>'
+    return f'<img class="game-cover" src="{FIREFLIES_IMAGES}/portada.png" alt="" width="900" height="439"{loading}>'
 
 
 def luciernagas(lang):
@@ -391,9 +405,11 @@ def luciernagas(lang):
         f'<li class="paso"><h3>{title}</h3><p>{text}</p></li>\n'
         for title, text in game['steps']
     )
-    scenes = ''.join(
-        f'<li><figure>{scene_image(number, "poster", lazy=True)}<figcaption>{title}</figcaption></figure></li>\n'
-        for number, title in zip(('01', '04', '07', '10'), game['scenes'])
+    screenshot_lang = 'en' if lang == 'en' else 'es'
+    screenshots = ''.join(
+        f'<li><img class="poster" src="{FIREFLIES_IMAGES}/captura_{number}_{screenshot_lang}.png" '
+        f'alt="{alt}" width="900" height="1600" loading="lazy"></li>\n'
+        for number, alt in zip(('01', '02', '04', '05'), game['screenshots'])
     )
     play = ''.join(f'<li>{item}</li>' for item in game['play'])
     title = f"{game['name']} · {game['title_section']} · Nythera Games"
@@ -409,7 +425,7 @@ def luciernagas(lang):
 <p class="lead">{game['lead']}</p>
 {chips(t, t['soon'])}
 </div>
-<div class="hero-art">{scene_image('01', 'scene-feature', lazy=False)}</div>
+<div class="hero-art">{fireflies_cover(lazy=False)}</div>
 </div>
 </section>
 
@@ -421,11 +437,11 @@ def luciernagas(lang):
 </div>
 </section>
 
-<section class="section" aria-labelledby="historia">
+<section class="section" aria-labelledby="capturas">
 <div class="wrap">
-<div class="section-head"><p class="eyebrow">{game['story']}</p><h2 id="historia">{game['story_title']}</h2><p>{game['story_text']}</p></div>
-<ul class="cartelera escenas">
-{scenes}</ul>
+<div class="section-head"><h2 id="capturas">{game['gallery']}</h2></div>
+<ul class="cartelera capturas" aria-labelledby="capturas" tabindex="0">
+{screenshots}</ul>
 <div class="jugar"><h3>{game['pace']}</h3><ul class="stars">{play}</ul></div>
 </div>
 </section>
