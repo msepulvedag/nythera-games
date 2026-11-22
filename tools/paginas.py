@@ -1,5 +1,5 @@
-"""Genera portada, Cinemiau y Acerca de en ES/EN/PT y aplica cabecera, selector de idioma y pie a las páginas legales y 404. Uso: python3 tools/paginas.py"""
-import re, pathlib, sys
+"""Genera portada, páginas de juegos y Acerca de en ES/EN/PT y aplica cabecera, selector de idioma y pie a las páginas legales y 404. Uso: python3 tools/paginas.py"""
+import re, pathlib
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 LANGS = ['es', 'en', 'pt']
 ROUTES = {
@@ -8,16 +8,19 @@ ROUTES = {
     'cinemiau': {'es': '/cinemiau/', 'en': '/cinemiau/en/', 'pt': '/cinemiau/pt/'},
     'privacy': {'es': '/cinemiau/privacidad/', 'en': '/cinemiau/privacy/', 'pt': '/cinemiau/privacidade/'},
     'terms': {'es': '/cinemiau/condiciones/', 'en': '/cinemiau/terms/', 'pt': '/cinemiau/termos/'},
+    'luciernagas': {'es': '/luciernagas/', 'en': '/luciernagas/en/', 'pt': '/luciernagas/pt/'},
+    'l_privacy': {'es': '/luciernagas/privacidad/', 'en': '/luciernagas/privacy/', 'pt': '/luciernagas/privacidade/'},
+    'l_terms': {'es': '/luciernagas/condiciones/', 'en': '/luciernagas/terms/', 'pt': '/luciernagas/termos/'},
 }
 UI = {
     'es': dict(home='Inicio', about='Nosotros', privacy='Privacidad', terms='Condiciones', brand='Nythera Games, inicio', nav='Principal', langnav='Idioma',
-               f_studio='Nythera', f_about='Acerca de nosotros', f_contact='Contacto', f_games='Nuestros juegos',
+               f_studio='Nythera', f_about='Acerca de nosotros', f_contact='Contacto', f_games='Nuestros juegos', f_legal='Legal',
                f_privacy='Política de privacidad', f_terms='Condiciones del servicio', f_tag='Juegos pequeños para noches tranquilas.', f_place='Santiago, Chile'),
     'en': dict(home='Home', about='About', privacy='Privacy', terms='Terms', brand='Nythera Games, home', nav='Main', langnav='Language',
-               f_studio='Nythera', f_about='About us', f_contact='Contact', f_games='Our games',
+               f_studio='Nythera', f_about='About us', f_contact='Contact', f_games='Our games', f_legal='Legal',
                f_privacy='Privacy policy', f_terms='Terms of service', f_tag='Small games for quiet nights.', f_place='Santiago, Chile'),
     'pt': dict(home='Início', about='Sobre nós', privacy='Privacidade', terms='Termos', brand='Nythera Games, início', nav='Principal', langnav='Idioma',
-               f_studio='Nythera', f_about='Sobre nós', f_contact='Contato', f_games='Nossos jogos',
+               f_studio='Nythera', f_about='Sobre nós', f_contact='Contato', f_games='Nossos jogos', f_legal='Informações legais',
                f_privacy='Política de privacidade', f_terms='Termos de serviço', f_tag='Jogos pequenos para noites tranquilas.', f_place='Santiago, Chile'),
 }
 LANGNAME = {'es': 'Español', 'en': 'English', 'pt': 'Português'}
@@ -39,7 +42,7 @@ def head(lang, title, desc, page, extra=''):
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/Marcellus.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Figtree.woff2" as="font" type="font/woff2" crossorigin>
-{extra}{alts}<link rel="stylesheet" href="/style.css?v=6">
+{extra}{alts}<link rel="stylesheet" href="/style.css?v=7">
 </head>
 '''
 
@@ -49,7 +52,7 @@ def header(lang, page):
     def nav_link(key, label):
         cur = ' aria-current="page"' if key == page else ''
         return f'<a href="{ROUTES[key][lang]}"{cur}>{label}</a>'
-    nav = nav_link('home', u['home']) + nav_link('cinemiau', 'Cinemiau') + nav_link('about', u['about'])
+    nav = nav_link('home', u['home']) + nav_link('cinemiau', 'Cinemiau') + nav_link('luciernagas', L[lang]['label']) + nav_link('about', u['about'])
     CUR = ' aria-current="true"'
     langs = ''.join(
         f'<a href="{ROUTES[page][l]}" hreflang="{l}" lang="{l}" title="{LANGNAME[l]}"{CUR if l == lang else ""}>{l.upper()}</a>'
@@ -63,10 +66,16 @@ def header(lang, page):
 
 def footer(lang):
     u = UI[lang]; R = lambda k: ROUTES[k][lang]
+    legal = ''.join(
+        f'<li><a href="{R(key)}">{game} · {u[label]}</a></li>'
+        for game, privacy, terms in [('Cinemiau', 'privacy', 'terms'), (L[lang]['label'], 'l_privacy', 'l_terms')]
+        for key, label in [(privacy, 'f_privacy'), (terms, 'f_terms')]
+    )
     return f'''<footer class="site-footer"><div class="wrap">
 <div class="footer-brand"><img class="marca" src="/assets/img/nythera-wordmark.png" alt="Nythera Games" width="150" height="34" loading="lazy"><p>{u['f_tag']}</p><p><a href="mailto:contacto@nythera.games">contacto@nythera.games</a></p></div>
 <nav class="footer-col" aria-label="{u['f_studio']}"><h2>{u['f_studio']}</h2><ul><li><a href="{R('about')}">{u['f_about']}</a></li><li><a href="mailto:contacto@nythera.games">{u['f_contact']}</a></li></ul></nav>
-<nav class="footer-col" aria-label="{u['f_games']}"><h2>{u['f_games']}</h2><ul><li><a href="{R('cinemiau')}">Cinemiau</a></li><li><a href="{R('privacy')}">{u['f_privacy']}</a></li><li><a href="{R('terms')}">{u['f_terms']}</a></li></ul></nav>
+<nav class="footer-col" aria-label="{u['f_games']}"><h2>{u['f_games']}</h2><ul><li><a href="{R('cinemiau')}">Cinemiau</a></li><li><a href="{R('luciernagas')}">{L[lang]['label']}</a></li></ul></nav>
+<nav class="footer-col" aria-label="{u['f_legal']}"><h2>{u['f_legal']}</h2><ul>{legal}</ul></nav>
 <p class="footer-legal">© 2026 Nythera Games · {u['f_place']}</p>
 </div></footer>'''
 
@@ -90,7 +99,7 @@ T = {
   lead='Hacemos juegos móviles con cariño: fáciles de empezar, sin cuentas y sin letra pequeña.',
   cta1='Conocer Cinemiau',
   nyx_alt='Ilustración: Nyx, diosa de la noche, juega con su móvil en su cama bajo una luna creciente',
-  games_eyebrow='Nuestros juegos', games_h2='El primer estreno',
+  games_eyebrow='Juegos pequeños para la noche', games_h2='Nuestros juegos',
   game_name='Cinemiau: Puzzle de Gatos', soon='Próximamente',
   game_text='Ordena piedras de colores, completa el pixel art y descubre el póster de una película… ¡protagonizada por gatos!',
   game_cta='Ver Cinemiau',
@@ -118,7 +127,7 @@ T = {
   lead='We make mobile games with care: easy to start, no accounts and no fine print.',
   cta1='Meet Cinemiau',
   nyx_alt='Illustration: Nyx, goddess of the night, plays on her phone in bed under a crescent moon',
-  games_eyebrow='Our games', games_h2='The first premiere',
+  games_eyebrow='Small games for the night', games_h2='Our games',
   game_name='Cinemiau: Cat Puzzle', soon='Coming soon',
   game_text='Sort colored stones, finish the pixel art and reveal a movie poster starring… cats!',
   game_cta='See Cinemiau',
@@ -146,7 +155,7 @@ T = {
   lead='Fazemos jogos para celular com carinho: fáceis de começar, sem contas e sem letras miúdas.',
   cta1='Conhecer o Cinemiau',
   nyx_alt='Ilustração: Nyx, deusa da noite, joga no celular na cama sob uma lua crescente',
-  games_eyebrow='Nossos jogos', games_h2='A primeira estreia',
+  games_eyebrow='Jogos pequenos para a noite', games_h2='Nossos jogos',
   game_name='Cinemiau: Puzzle de Gatos', soon='Em breve',
   game_text='Ordene pedras coloridas, complete o pixel art e descubra o pôster de um filme… estrelado por gatos!',
   game_cta='Ver o Cinemiau',
@@ -175,7 +184,7 @@ def chips(t, soon):
 
 
 def home(lang):
-    t = T[lang]; idx = {'es': 0, 'en': 1, 'pt': 2}[lang]
+    t = T[lang]; game = L[lang]
     fan = ''.join(f'<img class="poster" src="{poster_src(lang, s)}" alt="" width="400" height="600" loading="lazy">\n'
                   for s, *_ in [POSTERS[0], POSTERS[1], POSTERS[2]])
     return head(lang, t['home_title'], t['home_desc'], 'home',
@@ -212,6 +221,16 @@ def home(lang):
 </div>
 <div class="posters" aria-hidden="true">
 {fan}</div>
+</article>
+<article class="game" data-product="luciernagas">
+<div class="game-text">
+{fireflies_logo()}
+<h3>{game['name']}</h3>
+{chips(t, t['soon'])}
+<p>{game['lead']}</p>
+<div class="actions"><a class="btn btn--primary" href="{ROUTES['luciernagas'][lang]}">{game['cta']}</a></div>
+</div>
+{scene_image('01', 'scene-feature', lazy=True)}
 </article>
 </div>
 </section>
@@ -277,6 +296,152 @@ def cinemiau(lang):
 <h2>{t['priv_h2']}</h2>
 <p>{priv}</p>
 <p class="muted">{t['disclaimer']}</p>
+</div>
+</div>
+</section>
+</main>
+{footer(lang)}
+</body>
+</html>
+'''
+
+
+L = {
+    'es': dict(
+        label='Luciérnagas', name='Luciérnagas: La última luz', cta='Ver Luciérnagas', title_section='Juego y soporte',
+        desc='Une todas las luciérnagas de un solo trazo y devuelve la luz al bosque. 100 niveles, 10 escenas ilustradas y una historia narrada.',
+        lead='El bosque se ha quedado a oscuras. Solo queda una luciérnaga… y tú. Une todas las luciérnagas de un solo trazo para devolverle la luz al bosque.',
+        steps=[
+            ('Une las luciérnagas', 'Dibuja una línea continua que conecte todas las luciérnagas del tablero sin levantar el dedo.'),
+            ('Pasa una sola vez', 'Traza el camino sin pasar dos veces por la misma casilla.'),
+            ('Enciende el bosque', 'Cada nivel resuelto ilumina un poco más el bosque. Si te trabas, una pista marca el inicio y muestra un tramo del camino.'),
+        ],
+        story='La historia', story_title='La última luz del bosque',
+        story_text='Diez escenas ilustradas se iluminan a medida que juegas, con música propia y narración en español e inglés. El texto se resalta palabra a palabra.',
+        scenes=('La última luciérnaga', 'El cazador del puente', 'La abertura', 'El sendero vuelve a brillar'),
+        pace='Juega a tu ritmo',
+        play=[
+            '100 niveles con dificultad creciente y un tutorial breve.',
+            'Sin temporizadores ni vidas. Rejuega niveles para mejorar tus estrellas.',
+            'Consigue tres estrellas al resolver sin reiniciar y gana pistas extra con tus rachas.',
+            'Ajusta los efectos, la música, la vibración y la narración.',
+        ],
+        ads='Gratis. Los anuncios de AdMob empiezan en el nivel 20 y una compra única los elimina todos.',
+    ),
+    'en': dict(
+        label='Fireflies', name='Fireflies: The Last Light', cta='See Fireflies', title_section='Game and support',
+        desc='Connect every firefly in one stroke and bring light back to the forest. 100 levels, 10 illustrated scenes and a narrated story.',
+        lead='The forest has gone dark. Only one firefly is left… and you. Connect every firefly in one stroke to bring light back to the forest.',
+        steps=[
+            ('Connect the fireflies', 'Draw one continuous line through every firefly on the board without lifting your finger.'),
+            ('Visit each spot once', 'Draw your path without passing through the same spot twice.'),
+            ('Light up the forest', 'Every puzzle you solve lights up more of the forest. If you get stuck, a hint marks the start and shows part of the path.'),
+        ],
+        story='The story', story_title='The Last Light in the Forest',
+        story_text='Ten illustrated scenes light up as you play, with original music and narration in English and Spanish. The text is highlighted word by word.',
+        scenes=('The Last Firefly', 'The Hunter on the Bridge', 'The Opening', 'The Path Glows Again'),
+        pace='Play at your own pace',
+        play=[
+            '100 levels of growing difficulty and a short tutorial.',
+            'No timers or lives. Replay levels to improve your stars.',
+            'Earn three stars by solving without restarting and win extra hints with your streaks.',
+            'Adjust effects, music, vibration and narration.',
+        ],
+        ads='Free to play. AdMob ads start at level 20, and a one-time purchase removes them all.',
+    ),
+    'pt': dict(
+        label='Luciérnagas', name='Luciérnagas: La última luz', cta='Ver Luciérnagas', title_section='Jogo e suporte',
+        desc='Conecte todos os vaga-lumes com um só traço e devolva a luz à floresta. São 100 níveis, 10 cenas ilustradas e uma história narrada.',
+        lead='A floresta ficou às escuras. Só resta um vaga-lume… e você. Conecte todos os vaga-lumes com um só traço para devolver a luz à floresta.',
+        steps=[
+            ('Conecte os vaga-lumes', 'Desenhe uma linha contínua que passe por todos os vaga-lumes do tabuleiro sem levantar o dedo.'),
+            ('Passe uma única vez', 'Trace o caminho sem passar duas vezes pela mesma casa.'),
+            ('Ilumine a floresta', 'Cada nível resolvido ilumina mais um pouco a floresta. Se travar, use uma dica para ver o início e um trecho do caminho.'),
+        ],
+        story='A história', story_title='A última luz da floresta',
+        story_text='Dez cenas ilustradas se iluminam conforme você joga, com música original e narração com texto destacado palavra por palavra. O jogo está disponível em espanhol e inglês.',
+        scenes=('O último vaga-lume', 'O caçador da ponte', 'A abertura', 'A trilha volta a brilhar'),
+        pace='Jogue no seu ritmo',
+        play=[
+            '100 níveis com dificuldade crescente e um tutorial breve.',
+            'Sem cronômetros nem vidas. Jogue os níveis novamente para melhorar suas estrelas.',
+            'Ganhe três estrelas ao resolver sem reiniciar e conquiste dicas extras com suas sequências.',
+            'Ajuste os efeitos, a música, a vibração e a narração.',
+        ],
+        ads='Grátis. Os anúncios do AdMob começam no nível 20 e uma compra única remove todos eles.',
+    ),
+}
+
+FIREFLIES_IMAGES = '/assets/img/luciernagas'
+
+
+def fireflies_logo():
+    return f'<img class="game-logo" src="{FIREFLIES_IMAGES}/logo.webp" alt="" width="1300" height="535">'
+
+
+def scene_image(number, css_class, *, lazy):
+    width = 940 if number == '10' else 941
+    loading = ' loading="lazy"' if lazy else ''
+    return f'<img class="{css_class}" src="{FIREFLIES_IMAGES}/escena_{number}.webp" alt="" width="{width}" height="1672"{loading}>'
+
+
+def luciernagas(lang):
+    t, game, u = T[lang], L[lang], UI[lang]
+    steps = ''.join(
+        f'<li class="paso"><h3>{title}</h3><p>{text}</p></li>\n'
+        for title, text in game['steps']
+    )
+    scenes = ''.join(
+        f'<li><figure>{scene_image(number, "poster", lazy=True)}<figcaption>{title}</figcaption></figure></li>\n'
+        for number, title in zip(('01', '04', '07', '10'), game['scenes'])
+    )
+    play = ''.join(f'<li>{item}</li>' for item in game['play'])
+    title = f"{game['name']} · {game['title_section']} · Nythera Games"
+    return head(lang, title, game['desc'], 'luciernagas') + f'''<body data-product="luciernagas">
+{header(lang, 'luciernagas')}
+<main>
+<section class="hero">
+<div class="cielo" aria-hidden="true"></div>
+<div class="wrap">
+<div class="hero-text">
+{fireflies_logo()}
+<h1>{game['name']}</h1>
+<p class="lead">{game['lead']}</p>
+{chips(t, t['soon'])}
+</div>
+<div class="hero-art">{scene_image('01', 'scene-feature', lazy=False)}</div>
+</div>
+</section>
+
+<section class="section" aria-labelledby="como">
+<div class="wrap">
+<div class="section-head"><h2 id="como">{t['how_eyebrow']}</h2></div>
+<ol class="pasos pasos--texto">
+{steps}</ol>
+</div>
+</section>
+
+<section class="section" aria-labelledby="historia">
+<div class="wrap">
+<div class="section-head"><p class="eyebrow">{game['story']}</p><h2 id="historia">{game['story_title']}</h2><p>{game['story_text']}</p></div>
+<ul class="cartelera escenas">
+{scenes}</ul>
+<div class="jugar"><h3>{game['pace']}</h3><ul class="stars">{play}</ul></div>
+</div>
+</section>
+
+<section class="section" aria-labelledby="soporte">
+<div class="wrap">
+<div class="section-head">
+<p class="eyebrow">{t['sup_eyebrow']}</p>
+<h2 id="soporte">{t['sup_h2']}</h2>
+<p>{t['sup_p']}</p>
+<h2>{t['priv_h2']}</h2>
+<p>{game['ads']}</p>
+<ul>
+<li><a href="{ROUTES['l_privacy'][lang]}">{u['f_privacy']}</a></li>
+<li><a href="{ROUTES['l_terms'][lang]}">{u['f_terms']}</a></li>
+</ul>
 </div>
 </div>
 </section>
@@ -408,9 +573,10 @@ for l in LANGS:
     write(ROUTES['home'][l], home(l))
     write(ROUTES['cinemiau'][l], cinemiau(l))
     write(ROUTES['about'][l], about(l))
+    write(ROUTES['luciernagas'][l], luciernagas(l))
 
 # Páginas legales y 404: cambia cabecera, pie, hreflang y versión de la hoja
-for page in ('privacy', 'terms'):
+for page in ('privacy', 'terms', 'l_privacy', 'l_terms'):
     for l in LANGS:
         p = ROOT / ROUTES[page][l].strip('/') / 'index.html'
         s = p.read_text()
@@ -418,13 +584,14 @@ for page in ('privacy', 'terms'):
         s, n = re.subn(r'<footer class="site-footer">.*?</footer>', lambda m: footer(l), s, flags=re.S); assert n == 1, p
         s = re.sub(r'<link rel="alternate" hreflang[^>]*>\n', '', s)
         alts = ''.join(f'<link rel="alternate" hreflang="{x}" href="https://www.nythera.games{ROUTES[page][x]}">\n' for x in LANGS)
-        s = re.sub(r'<link rel="stylesheet" href="/style.css\?v=\d+">', lambda m: alts + '<link rel="stylesheet" href="/style.css?v=6">', s)
+        s = re.sub(r'<link rel="stylesheet" href="/style.css\?v=\d+">', lambda m: alts + '<link rel="stylesheet" href="/style.css?v=7">', s)
         p.write_text(s); print('updated', p.relative_to(ROOT))
 
 p = ROOT / '404.html'; s = p.read_text()
 s, n = re.subn(r'<header class="site-header">.*?</header>', lambda m: header('es', 'home').replace(' aria-current="page"', ''), s, flags=re.S); assert n == 1
 s, n = re.subn(r'<footer class="site-footer">.*?</footer>', lambda m: footer('es'), s, flags=re.S); assert n == 1
-s = re.sub(r'/style\.css\?v=\d+', '/style.css?v=6', s)
-s = s.replace('<p>Esta página no existe. <a href="/">Volver al inicio</a>.</p>',
-              '<p>Esta página no existe. <a href="/">Volver al inicio</a>.</p><p lang="en">This page does not exist. <a href="/en/">Go to the home page</a>.</p><p lang="pt">Esta página não existe. <a href="/pt/">Voltar ao início</a>.</p>')
+s = re.sub(r'/style\.css\?v=\d+', '/style.css?v=7', s)
+if '<p lang="en">' not in s:
+    s = s.replace('<p>Esta página no existe. <a href="/">Volver al inicio</a>.</p>',
+                  '<p>Esta página no existe. <a href="/">Volver al inicio</a>.</p><p lang="en">This page does not exist. <a href="/en/">Go to the home page</a>.</p><p lang="pt">Esta página não existe. <a href="/pt/">Voltar ao início</a>.</p>')
 p.write_text(s); print('updated 404.html')
