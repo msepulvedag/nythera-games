@@ -396,7 +396,7 @@ def fireflies_logo():
 
 def fireflies_cover(*, lazy):
     loading = ' loading="lazy"' if lazy else ''
-    return f'<img class="game-cover" src="{FIREFLIES_IMAGES}/portada.png" alt="" width="900" height="439"{loading}>'
+    return f'<img class="game-cover" src="{FIREFLIES_IMAGES}/portada.jpg" alt="" width="1200" height="675"{loading}>'
 
 
 def luciernagas(lang):
