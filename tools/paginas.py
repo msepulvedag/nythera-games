@@ -331,7 +331,7 @@ L = {
             'Ajusta los efectos, la música, la vibración y la narración.',
             'Una historia narrada.',
         ],
-        ads='Gratis. Los anuncios de AdMob empiezan en el nivel 21 y una compra única los elimina todos.',
+        ads='Gratis. Los anuncios empiezan en el nivel 21 y una compra única los elimina todos.',
     ),
     'en': dict(
         label='Fireflies', name='Fireflies: The Last Light', cta='See Fireflies', title_section='Game and support',
@@ -357,7 +357,7 @@ L = {
             'Adjust effects, music, vibration and narration.',
             'A narrated story.',
         ],
-        ads='Free to play. AdMob ads start at level 21, and a one-time purchase removes them all.',
+        ads='Free to play. Ads start at level 21, and a one-time purchase removes them all.',
     ),
     'pt': dict(
         label='Luciérnagas', name='Luciérnagas: La última luz', cta='Ver Luciérnagas', title_section='Jogo e suporte',
@@ -383,7 +383,7 @@ L = {
             'Ajuste os efeitos, a música, a vibração e a narração.',
             'Uma história narrada.',
         ],
-        ads='Grátis. Os anúncios do AdMob começam no nível 21 e uma compra única remove todos eles.',
+        ads='Grátis. Os anúncios começam no nível 21 e uma compra única remove todos eles.',
     ),
 }
 
